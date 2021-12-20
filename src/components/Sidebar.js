@@ -1,14 +1,37 @@
 import React from 'react';
 import logo from '../assets/logo.svg';
 import { Link } from 'react-router-dom';
-import { useProductsContext } from '../context/products_context';
 import { FaTimes } from 'react-icons/fa';
 import { links } from '../utils/constants';
 import styled from 'styled-components';
 import CartButtons from './CartButtons';
 
 const Sidebar = () => {
-  return <h4>sidebar</h4>;
+  return (
+    <SidebarContainer>
+      <aside className="sidebar show-sidebar">
+        <div className="sidebar-header">
+          <Link to="/">
+            <img src={logo} alt="main-logo" className="logo" />
+          </Link>
+          <button type="button" className="close-btn">
+            <FaTimes />
+          </button>
+        </div>
+        <ul className="links">
+          {links.map((link) => {
+            const { id, text, url } = link;
+            return (
+              <li key={id}>
+                <Link to={url}>{text}</Link>
+              </li>
+            );
+          })}
+        </ul>
+        <CartButtons />
+      </aside>
+    </SidebarContainer>
+  );
 };
 
 const SidebarContainer = styled.div`

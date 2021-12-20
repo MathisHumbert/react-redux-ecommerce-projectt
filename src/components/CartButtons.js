@@ -2,11 +2,19 @@ import React from 'react';
 import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useProductsContext } from '../context/products_context';
-import { useCartContext } from '../context/cart_context';
 
 const CartButtons = () => {
-  return <h4>cart buttons </h4>;
+  return (
+    <Wrapper className="cart-btn-wrapper">
+      <Link to="/cart" className="cart-btn">
+        Cart{' '}
+        <span className="cart-container">
+          <FaShoppingCart />
+          <span className="cart-value">0</span>
+        </span>
+      </Link>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`
