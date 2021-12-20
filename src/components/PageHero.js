@@ -1,12 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-const PageHero = ({ actualPage }) => {
+const PageHero = ({ actualPage, actualProduct }) => {
+  console.log(actualPage, actualProduct);
   return (
     <Wrapper>
       <div className="section-center">
         <h3>
-          <Link to="/">Home </Link>/ {actualPage}
+          {actualProduct ? (
+            <>
+              <Link to="/">Home </Link>
+              <Link to="/products">/ Products</Link> / {actualPage}
+            </>
+          ) : (
+            <>
+              <Link to="/">Home </Link> / {actualPage}
+            </>
+          )}
         </h3>
       </div>
     </Wrapper>
