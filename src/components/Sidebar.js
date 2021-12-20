@@ -5,16 +5,25 @@ import { FaTimes } from 'react-icons/fa';
 import { links } from '../utils/constants';
 import styled from 'styled-components';
 import CartButtons from './CartButtons';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeSidebar } from '../redux/actions/productsActions';
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const { isSidebarOpen } = useSelector((state) => state.productsReducer);
+
   return (
     <SidebarContainer>
-      <aside className="sidebar show-sidebar">
+      <aside className={isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}>
         <div className="sidebar-header">
-          <Link to="/">
+          <Link to="/" onClick={() => dispatch(closeSidebar())}>
             <img src={logo} alt="main-logo" className="logo" />
           </Link>
-          <button type="button" className="close-btn">
+          <button
+            type="button"
+            className="close-btn"
+            onClick={() => dispatch(closeSidebar())}
+          >
             <FaTimes />
           </button>
         </div>
@@ -23,7 +32,9 @@ const Sidebar = () => {
             const { id, text, url } = link;
             return (
               <li key={id}>
-                <Link to={url}>{text}</Link>
+                <Link to={url} onClick={() => dispatch(closeSidebar())}>
+                  {text}
+                </Link>
               </li>
             );
           })}

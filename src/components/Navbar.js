@@ -5,8 +5,12 @@ import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { links } from '../utils/constants';
 import CartButtons from './CartButtons';
+import { useDispatch } from 'react-redux';
+import { openSidebar } from '../redux/actions/productsActions';
 
 const Nav = () => {
+  const dispatch = useDispatch();
+
   return (
     <NavContainer>
       <div className="nav-center">
@@ -14,7 +18,11 @@ const Nav = () => {
           <Link to="/">
             <img src={logo} alt="main-logo" />
           </Link>
-          <button type="button" className="nav-toggle">
+          <button
+            type="button"
+            className="nav-toggle"
+            onClick={() => dispatch(openSidebar())}
+          >
             <FaBars />
           </button>
         </div>
