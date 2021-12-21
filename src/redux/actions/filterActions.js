@@ -32,4 +32,12 @@ const setGridView = () => {
   return (dispatch) => dispatch({ type: SET_GRIDVIEW });
 };
 
-export { loadProducts, setListView, setGridView };
+const updateSort = (sort) => {
+  return (dispatch) => dispatch({ type: UPDATE_SORT, payload: sort });
+};
+
+const sortProducts = () => {
+  return (dispatch) => dispatch({ type: SORT_PRODUCTS });
+};
+
+export { loadProducts, setListView, setGridView, updateSort, sortProducts };

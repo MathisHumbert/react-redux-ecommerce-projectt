@@ -3,13 +3,22 @@ import { BsFillGridFill, BsList } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { setGridView, setListView } from '../redux/actions/filterActions';
+import {
+  setGridView,
+  setListView,
+  sortProducts,
+  updateSort,
+} from '../redux/actions/filterActions';
 
 const Sort = () => {
   const dispatch = useDispatch();
-  const { gridView, filtered_products } = useSelector(
+  const { gridView, filtered_products, sort, all_products } = useSelector(
     (state) => state.filterReducer
   );
+
+  React.useEffect(() => {
+    dispatch(sortProducts());
+  }, [sort, all_products]);
 
   return (
     <Wrapper>
@@ -31,7 +40,13 @@ const Sort = () => {
       <hr />
       <form>
         <label htmlFor="sort">
-          <select name="sort" id="sort" className="sort-input">
+          <select
+            name="sort"
+            id="sort"
+            className="sort-input"
+            value={sort}
+            onChange={(e) => dispatch(updateSort(e.target.value))}
+          >
             <option value="price-lowest">price (lowest)</option>
             <option value="price-highest">price (highest)</option>
             <option value="name-a">name (a - z)</option>

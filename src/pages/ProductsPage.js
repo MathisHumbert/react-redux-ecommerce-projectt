@@ -15,10 +15,12 @@ const ProductsPage = () => {
     <main>
       <PageHero actualPage="products" actualProduct={false} />
       <Wrapper>
-        <Filters />
-        <div>
-          <Sort />
-          <ProductList />
+        <div className="section-center products">
+          <Filters />
+          <div>
+            <Sort />
+            <ProductList />
+          </div>
         </div>
       </Wrapper>
     </main>

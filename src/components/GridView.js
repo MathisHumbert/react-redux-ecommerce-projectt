@@ -1,10 +1,21 @@
-import React from 'react'
-import styled from 'styled-components'
-import Product from './Product'
+import React from 'react';
+import styled from 'styled-components';
+import Product from './Product';
+import { useSelector } from 'react-redux';
 
 const GridView = () => {
-  return <h4>Grid View</h4>
-}
+  const { filtered_products } = useSelector((state) => state.filterReducer);
+
+  return (
+    <Wrapper>
+      <div className="products-container">
+        {filtered_products.map((product) => {
+          return <Product key={product.id} {...product} />;
+        })}
+      </div>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.section`
   img {
@@ -26,6 +37,6 @@ const Wrapper = styled.section`
       grid-template-columns: repeat(3, 1fr);
     }
   }
-`
+`;
 
-export default GridView
+export default GridView;

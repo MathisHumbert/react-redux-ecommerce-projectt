@@ -1,10 +1,33 @@
-import React from 'react'
-import styled from 'styled-components'
-import { formatPrice } from '../utils/helpers'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import styled from 'styled-components';
+import { formatPrice } from '../utils/helpers';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 const ListView = () => {
-  return <h4>list view</h4>
-}
+  const { filtered_products } = useSelector((state) => state.filterReducer);
+
+  return (
+    <Wrapper>
+      {filtered_products.map((product) => {
+        const { name, price, description, id, image } = product;
+        return (
+          <article key={id}>
+            <img src={image} alt={name} />
+            <div>
+              <h4>name</h4>
+              <h5 className="price">{formatPrice(price)}</h5>
+              <p>{description.substring(0, 300)}...</p>
+            </div>
+            <Link to={`/product/${id}`} className="btn">
+              details
+            </Link>
+          </article>
+        );
+      })}
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.section`
   display: grid;
@@ -42,6 +65,6 @@ const Wrapper = styled.section`
       align-items: center;
     }
   }
-`
+`;
 
-export default ListView
+export default ListView;
