@@ -21,7 +21,6 @@ const SingleProductPage = () => {
   const { loading, error, single_product } = useSelector(
     (state) => state.productsReducer
   );
-  console.log(single_product);
   useEffect(() => {
     dispatch(fetchSingleProduct(`${url}${id}`));
   }, []);
@@ -34,7 +33,19 @@ const SingleProductPage = () => {
     return <Error />;
   }
 
-  const { name, description, price, stock, company, images } = single_product;
+  console.log(single_product);
+
+  const {
+    name,
+    description,
+    price,
+    stock,
+    company,
+    images,
+    reviews,
+    stars,
+    colors,
+  } = single_product;
 
   return (
     <Wrapper>
@@ -47,7 +58,7 @@ const SingleProductPage = () => {
           <ProductImages images={images} />
           <div className="content">
             <h2>{name}</h2>
-            <Stars />
+            <Stars reviews={reviews} stars={stars} />
             <h5 className="price">{formatPrice(price)}</h5>
             <p className="desc">{description}</p>
             <p className="info">
@@ -63,7 +74,7 @@ const SingleProductPage = () => {
               {company}
             </p>
             <hr />
-            <AddToCart />
+            <AddToCart colors={colors} stock={stock} />
           </div>
         </div>
       </div>

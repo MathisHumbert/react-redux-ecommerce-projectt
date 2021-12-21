@@ -1,10 +1,47 @@
-import React from 'react'
-import { useFilterContext } from '../context/filter_context'
-import { BsFillGridFill, BsList } from 'react-icons/bs'
-import styled from 'styled-components'
+import React from 'react';
+import { BsFillGridFill, BsList } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import { setGridView, setListView } from '../redux/actions/filterActions';
+
 const Sort = () => {
-  return <h4>sort </h4>
-}
+  const dispatch = useDispatch();
+  const { gridView, filtered_products } = useSelector(
+    (state) => state.filterReducer
+  );
+
+  return (
+    <Wrapper>
+      <div className="btn-container">
+        <button
+          className={gridView ? 'active' : null}
+          onClick={() => dispatch(setGridView())}
+        >
+          <BsFillGridFill />
+        </button>
+        <button
+          className={gridView ? null : 'active'}
+          onClick={() => dispatch(setListView())}
+        >
+          <BsList />
+        </button>
+      </div>
+      <p>{filtered_products.length} Products Found</p>
+      <hr />
+      <form>
+        <label htmlFor="sort">
+          <select name="sort" id="sort" className="sort-input">
+            <option value="price-lowest">price (lowest)</option>
+            <option value="price-highest">price (highest)</option>
+            <option value="name-a">name (a - z)</option>
+            <option value="name-z">name (z - a)</option>
+          </select>
+        </label>
+      </form>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.section`
   display: grid;
@@ -67,6 +104,6 @@ const Wrapper = styled.section`
     font-size: 1rem;
     text-transform: capitalize;
   }
-`
+`;
 
-export default Sort
+export default Sort;
