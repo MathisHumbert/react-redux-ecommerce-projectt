@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaPlus, FaMinus } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { toggleCartItemAmount } from '../redux/actions/cartActions';
 
-const AmountButtons = ({ amount, stock, setAmount, productPage }) => {
+const AmountButtons = ({ amount, stock, setAmount, productPage, id }) => {
   const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.cartReducer);
 
   return (
     <Wrapper>
@@ -21,6 +21,7 @@ const AmountButtons = ({ amount, stock, setAmount, productPage }) => {
               return oldAmount - 1;
             });
           } else {
+            dispatch(toggleCartItemAmount(id, 'dec'));
           }
         }}
       >
@@ -39,6 +40,7 @@ const AmountButtons = ({ amount, stock, setAmount, productPage }) => {
               return oldAmount + 1;
             });
           } else {
+            dispatch(toggleCartItemAmount(id, 'inc'));
           }
         }}
       >

@@ -1,11 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useCartContext } from '../context/cart_context';
 import { formatPrice } from '../utils/helpers';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const CartTotals = () => {
-  return <h4>cart totals</h4>;
+  const { price, shipping } = useSelector((state) => state.cartReducer);
+
+  return (
+    <Wrapper>
+      <div>
+        <article>
+          <h5>
+            subtotal: <span>{formatPrice(price)}</span>
+          </h5>
+          <p>
+            shipping fee: <span>{formatPrice(shipping)}</span>
+          </p>
+          <hr />
+          <h4>
+            order total: <span>{formatPrice(price + shipping)}</span>
+          </h4>
+        </article>
+        <Link to="/checkout" className="btn">
+          checkout
+        </Link>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`

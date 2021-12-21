@@ -56,7 +56,7 @@ const AddToCart = () => {
                 price,
                 stock,
                 amount,
-                id,
+                id: `${id}${mainColor}`,
               })
             )
           }

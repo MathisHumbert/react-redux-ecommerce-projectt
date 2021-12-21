@@ -5,16 +5,20 @@ import CartColumns from './CartColumns';
 import CartItem from './CartItem';
 import CartTotals from './CartTotals';
 import { useDispatch, useSelector } from 'react-redux';
+import { countCartTotals, clearCart } from '../redux/actions/cartActions';
 
 const CartContent = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cartReducer);
 
+  React.useEffect(() => {
+    dispatch(countCartTotals());
+  }, [cart, dispatch]);
+
   return (
     <Wrapper className="section section-center">
       <CartColumns />
       {cart.map((item) => {
-        console.log(item);
         return <CartItem {...item} key={item.id} />;
       })}
       <hr />
@@ -22,7 +26,11 @@ const CartContent = () => {
         <Link to="/products" className="link-btn">
           continue shopping
         </Link>
-        <button type="button" className="link-btn clear-btn">
+        <button
+          type="button"
+          className="link-btn clear-btn"
+          onClick={() => dispatch(clearCart())}
+        >
           clear shopping cart
         </button>
       </div>

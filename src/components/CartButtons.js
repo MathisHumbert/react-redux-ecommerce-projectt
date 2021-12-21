@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { closeSidebar } from '../redux/actions/productsActions';
+import { useSelector } from 'react-redux';
 
 const CartButtons = () => {
   const dispatch = useDispatch();
+  const { amount } = useSelector((state) => state.cartReducer);
 
   return (
     <Wrapper className="cart-btn-wrapper">
@@ -18,7 +20,7 @@ const CartButtons = () => {
         Cart{' '}
         <span className="cart-container">
           <FaShoppingCart />
-          <span className="cart-value">0</span>
+          <span className="cart-value">{amount}</span>
         </span>
       </Link>
     </Wrapper>
