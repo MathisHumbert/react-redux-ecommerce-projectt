@@ -3,9 +3,18 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa';
 import AmountButtons from './AmountButtons';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../redux/actions/cartActions';
 
-const AddToCart = ({ colors, stock }) => {
+const AddToCart = () => {
+  const dispatch = useDispatch();
+  const { single_product } = useSelector((state) => state.productsReducer);
+
+  const { colors, stock, images, price, name, id } = single_product;
+  const image = images[0].url;
+
   const [mainColor, setMainColor] = useState(colors[0]);
+  const [amount, setAmount] = useState(1);
 
   return (
     <Wrapper>
@@ -29,8 +38,29 @@ const AddToCart = ({ colors, stock }) => {
         </div>
       </div>
       <div className="btn-container">
-        <AmountButtons />
-        <Link to="/cart" className="btn">
+        <AmountButtons
+          amount={amount}
+          stock={stock}
+          setAmount={setAmount}
+          productPage={true}
+        />
+        <Link
+          to="/cart"
+          className="btn"
+          onClick={() =>
+            dispatch(
+              addToCart({
+                image,
+                color: mainColor,
+                name,
+                price,
+                stock,
+                amount,
+                id,
+              })
+            )
+          }
+        >
           add to cart
         </Link>
       </div>

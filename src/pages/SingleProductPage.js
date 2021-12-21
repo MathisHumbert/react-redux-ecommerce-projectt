@@ -33,8 +33,6 @@ const SingleProductPage = () => {
     return <Error />;
   }
 
-  console.log(single_product);
-
   const {
     name,
     description,
@@ -74,7 +72,7 @@ const SingleProductPage = () => {
               {company}
             </p>
             <hr />
-            <AddToCart colors={colors} stock={stock} />
+            <AddToCart />
           </div>
         </div>
       </div>

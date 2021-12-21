@@ -1,15 +1,47 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaPlus, FaMinus } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 
-const AmountButtons = () => {
+const AmountButtons = ({ amount, stock, setAmount, productPage }) => {
+  const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state.cartReducer);
+
   return (
     <Wrapper>
-      <button className="amount-btn" type="button">
+      <button
+        className="amount-btn"
+        type="button"
+        onClick={() => {
+          if (productPage) {
+            setAmount((oldAmount) => {
+              if (amount === 1) {
+                return 1;
+              }
+              return oldAmount - 1;
+            });
+          } else {
+          }
+        }}
+      >
         <FaMinus />
       </button>
-      <h2 className="amount">1</h2>
-      <button className="amount-btn" type="button">
+      <h2 className="amount">{amount}</h2>
+      <button
+        className="amount-btn"
+        type="button"
+        onClick={() => {
+          if (productPage) {
+            setAmount((oldAmount) => {
+              if (amount === stock) {
+                return stock;
+              }
+              return oldAmount + 1;
+            });
+          } else {
+          }
+        }}
+      >
         <FaPlus />
       </button>
     </Wrapper>
