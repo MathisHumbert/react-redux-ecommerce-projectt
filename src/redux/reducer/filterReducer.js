@@ -3,6 +3,7 @@ import {
   SET_GRIDVIEW,
   SET_LISTVIEW,
   SORT_PRODUCTS,
+  UPDATE_FILTERS,
   UPDATE_SORT,
 } from '../actions/actions';
 
@@ -12,15 +13,27 @@ const initialState = {
   loading: true,
   gridView: true,
   sort: 'price-lowest',
+  filters: {
+    text: '',
+    category: 'all',
+    company: 'all',
+    color: 'all',
+    price: 0,
+    max_price: 0,
+    min_price: 0,
+    shipping: false,
+  },
 };
 
 const filterReducer = (state = initialState, { type, payload }) => {
   if (type === LOAD_PRODUCTS) {
+    const max = Math.max(...payload.map((item) => item.price));
     return {
       ...state,
       all_products: payload,
       filtered_products: payload,
       loading: false,
+      filters: { ...state.filters, max_price: max, price: max },
     };
   }
   if (type === SET_LISTVIEW) {
@@ -50,6 +63,12 @@ const filterReducer = (state = initialState, { type, payload }) => {
     }
 
     return { ...state, filtered_products: tempProducts };
+  }
+  if (type === UPDATE_FILTERS) {
+    return {
+      ...state,
+      filters: { ...state.filters, [payload.name]: payload.value },
+    };
   }
   return state;
 };

@@ -40,4 +40,34 @@ const sortProducts = () => {
   return (dispatch) => dispatch({ type: SORT_PRODUCTS });
 };
 
-export { loadProducts, setListView, setGridView, updateSort, sortProducts };
+const updateFilters = (e) => {
+  return (dispatch) => {
+    console.log(e.target.checked);
+    const name = e.target.name;
+    let value = e.target.value;
+
+    if (name === 'category') {
+      value = e.target.textContent;
+    }
+    if (name === 'color') {
+      value = e.target.dataset.color;
+    }
+    if (name === 'shipping') {
+      value = e.target.checked;
+    }
+
+    dispatch({
+      type: UPDATE_FILTERS,
+      payload: { name, value },
+    });
+  };
+};
+
+export {
+  loadProducts,
+  setListView,
+  setGridView,
+  updateSort,
+  sortProducts,
+  updateFilters,
+};
