@@ -1,4 +1,5 @@
 import {
+  FILTER_PRODUCTS,
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
   SET_LISTVIEW,
@@ -69,6 +70,18 @@ const filterReducer = (state = initialState, { type, payload }) => {
       ...state,
       filters: { ...state.filters, [payload.name]: payload.value },
     };
+  }
+  if (type === FILTER_PRODUCTS) {
+    const { text, category, company, color, price, shipping } = state.filters;
+    let tempProducts = state.all_products;
+
+    if (text) {
+      tempProducts = tempProducts.filter((p) => p.name.includes(text) === true);
+    }
+    if (category !== 'all') {
+      tempProducts = tempProducts.filter((p) => p.category === category);
+    }
+    return { ...state, filtered_products: tempProducts };
   }
   return state;
 };

@@ -4,13 +4,17 @@ import { getUniqueValues, formatPrice } from '../utils/helpers';
 import { FaCheck } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { updateFilters } from '../redux/actions/filterActions';
+import { updateFilters, filterProducts } from '../redux/actions/filterActions';
 
 const Filters = () => {
   const dispatch = useDispatch();
   const { filters, filtered_products, all_products } = useSelector(
     (state) => state.filterReducer
   );
+
+  React.useEffect(() => {
+    dispatch(filterProducts());
+  }, [filters]);
 
   const categories = getUniqueValues(all_products, 'category');
   const companies = getUniqueValues(filtered_products, 'company');

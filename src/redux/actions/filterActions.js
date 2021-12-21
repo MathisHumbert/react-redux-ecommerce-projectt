@@ -42,7 +42,6 @@ const sortProducts = () => {
 
 const updateFilters = (e) => {
   return (dispatch) => {
-    console.log(e.target.checked);
     const name = e.target.name;
     let value = e.target.value;
 
@@ -55,12 +54,19 @@ const updateFilters = (e) => {
     if (name === 'shipping') {
       value = e.target.checked;
     }
+    if (name === 'price') {
+      value = Number(e.target.value);
+    }
 
     dispatch({
       type: UPDATE_FILTERS,
       payload: { name, value },
     });
   };
+};
+
+const filterProducts = () => {
+  return (dispatch) => dispatch({ type: FILTER_PRODUCTS });
 };
 
 export {
@@ -70,4 +76,5 @@ export {
   updateSort,
   sortProducts,
   updateFilters,
+  filterProducts,
 };

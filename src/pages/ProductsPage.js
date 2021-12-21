@@ -1,15 +1,20 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Filters, ProductList, Sort, PageHero } from '../components';
+import { Filters, ProductList, Sort, PageHero, Loading } from '../components';
 import { loadProducts } from '../redux/actions/filterActions';
 
 const ProductsPage = () => {
   const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.filterReducer);
 
   React.useEffect(() => {
     dispatch(loadProducts());
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <main>
