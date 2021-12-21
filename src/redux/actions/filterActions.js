@@ -69,6 +69,10 @@ const filterProducts = () => {
   return (dispatch) => dispatch({ type: FILTER_PRODUCTS });
 };
 
+const clearFilters = () => {
+  return (dispatch) => dispatch({ type: CLEAR_FILTERS });
+};
+
 export {
   loadProducts,
   setListView,
@@ -77,4 +81,5 @@ export {
   sortProducts,
   updateFilters,
   filterProducts,
+  clearFilters,
 };

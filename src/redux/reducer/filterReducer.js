@@ -1,4 +1,5 @@
 import {
+  CLEAR_FILTERS,
   FILTER_PRODUCTS,
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
@@ -81,7 +82,38 @@ const filterReducer = (state = initialState, { type, payload }) => {
     if (category !== 'all') {
       tempProducts = tempProducts.filter((p) => p.category === category);
     }
-    return { ...state, filtered_products: tempProducts };
+    if (company !== 'all') {
+      tempProducts = tempProducts.filter((p) => p.company === company);
+    }
+    if (color !== 'all') {
+      tempProducts = tempProducts.filter(
+        (p) => p.colors.includes(color) === true
+      );
+    }
+    tempProducts = tempProducts.filter((p) => p.price <= price);
+    if (shipping) {
+      tempProducts = tempProducts.filter((p) => p.shipping === true);
+    }
+    return {
+      ...state,
+      filtered_products: tempProducts,
+    };
+  }
+  if (type === CLEAR_FILTERS) {
+    const max = Math.max(...state.all_products.map((item) => item.price));
+    return {
+      ...state,
+      filters: {
+        text: '',
+        category: 'all',
+        company: 'all',
+        color: 'all',
+        price: max,
+        max_price: max,
+        min_price: 0,
+        shipping: false,
+      },
+    };
   }
   return state;
 };

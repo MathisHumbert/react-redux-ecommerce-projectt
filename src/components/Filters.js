@@ -4,7 +4,11 @@ import { getUniqueValues, formatPrice } from '../utils/helpers';
 import { FaCheck } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { updateFilters, filterProducts } from '../redux/actions/filterActions';
+import {
+  updateFilters,
+  filterProducts,
+  clearFilters,
+} from '../redux/actions/filterActions';
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -17,8 +21,8 @@ const Filters = () => {
   }, [filters]);
 
   const categories = getUniqueValues(all_products, 'category');
-  const companies = getUniqueValues(filtered_products, 'company');
-  const colors = getUniqueValues(filtered_products, 'colors');
+  const companies = getUniqueValues(all_products, 'company');
+  const colors = getUniqueValues(all_products, 'colors');
 
   return (
     <Wrapper>
@@ -123,18 +127,25 @@ const Filters = () => {
               onChange={(e) => dispatch(updateFilters(e))}
             />
           </div>
+          {/* shipping */}
+          <div className="form-control shipping">
+            <label htmlFor="shipping">free shipping</label>
+            <input
+              type="checkbox"
+              name="shipping"
+              id="shipping"
+              onChange={(e) => dispatch(updateFilters(e))}
+              checked={filters.shipping}
+            />
+          </div>
         </form>
-        {/* shipping */}
-        <div className="form-control shipping">
-          <label htmlFor="shipping">free shipping</label>
-          <input
-            type="checkbox"
-            name="shipping"
-            id="shipping"
-            onChange={(e) => dispatch(updateFilters(e))}
-            checked={filters.shipping}
-          />
-        </div>
+        <button
+          className="clear-btn"
+          type="button"
+          onClick={() => dispatch(clearFilters())}
+        >
+          clear filters
+        </button>
       </div>
     </Wrapper>
   );
